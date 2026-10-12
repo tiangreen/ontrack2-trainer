@@ -130,7 +130,7 @@ npm run preview    # serve dist/ on :4173
 - `src/data/grammar/index.ts`: topic registry. It feeds the grammar list, progress, the mock test and the data tests.
 - `src/state.tsx`, `src/logic/storage.ts`: persistence.
 - `src/types.ts`: domain model, including the persisted `AppState`.
-- `.oxlintrc.json`, `tsconfig.app.json` (app, bundler resolution), `tsconfig.node.json` (only `vite.config.ts`, nodenext), `vite.config.ts` (`react()` plus `base: './'` so the build runs under the Pages subpath).
+- `.oxlintrc.json`, `tsconfig.app.json` (app, bundler resolution), `tsconfig.node.json` (only `vite.config.ts`, nodenext), `vite.config.ts` (`react()` plus `base: './'` for relative asset paths).
 - `README.md` is still the stock Vite template and not authoritative.
 
 ## Runtime/Tooling Preferences
@@ -140,7 +140,7 @@ npm run preview    # serve dist/ on :4173
   - `react/rules-of-hooks` is an error.
   - `react/only-export-components` is a warning (constant exports allowed).
   - The default `react(purity)` rule flags `Date.now()` during render. Seed RNGs in handlers or in `useState(() => Date.now())`.
-- **Deployment:** `.github/workflows/deploy.yml` runs `npm test`, `npm run lint`, `npm run build` on every push to `main` (or manual dispatch) and publishes `dist/` to GitHub Pages: https://tiangreen.github.io/ontrack2-trainer/. Keep hash routing and relative asset paths; Pages has no SPA fallback.
+- **Deployment:** `.github/workflows/container.yml` runs `npm test` and `npm run lint` on every push to `main` (or manual dispatch), then builds the `Dockerfile` (Node build stage → `nginx:stable-alpine` serving `dist/`) for amd64/arm64 and pushes it to GitHub Packages as `ghcr.io/tiangreen/ontrack2-trainer` (tags `latest`, `sha-<short>`). Run: `docker run -p 8080:80 ghcr.io/tiangreen/ontrack2-trainer` → http://localhost:8080. nginx has no SPA fallback, so keep hash routing.
 - No `scripts/` and no `docs/` exist; `start.sh` is the only helper script.
 
 ## Testing & QA
