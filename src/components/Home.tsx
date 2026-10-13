@@ -10,8 +10,8 @@ export function Home() {
     <>
       <h1>Fit für den Leistungsnachweis</h1>
       <p className="lead">
-        On Track 2 – Workshop 1 (going to, will, Steigerung) und Workshop 2 (past progressive, present perfect,
-        unregelmäßige Verben, modal verbs).
+        On Track 2 – Workshop 1 (simple present, present progressive, going to, timetable future, will, Steigerung) und
+        Workshop 2 (simple past, past progressive, present perfect, unregelmäßige Verben, modal verbs).
       </p>
       <div className="tiles">
         {TILES.map((t) => (

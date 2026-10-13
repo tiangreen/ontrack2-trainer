@@ -3,7 +3,7 @@ import { useAppState } from '../state';
 import type { WorkshopId } from '../types';
 
 const WORKSHOPS: { id: WorkshopId; title: string }[] = [
-  { id: 'W1', title: 'Workshop 1 – Zukunft und Steigerung' },
+  { id: 'W1', title: 'Workshop 1 – Gegenwart, Zukunft und Steigerung' },
   { id: 'W2', title: 'Workshop 2 – Vergangenheit, present perfect und modal verbs' },
 ];
 

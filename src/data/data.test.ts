@@ -7,7 +7,10 @@ import { mediationItems } from './mediation';
 import { starterVocab } from './vocab';
 
 const MIN_ITEMS: Record<Exclude<TopicId, 'irregular-verbs'>, number> = {
-  'going-to': 20,
+  'simple-present': 28,
+  'present-progressive': 28,
+  'going-to': 36,
+  'timetable-future': 24,
   will: 20,
   'going-to-vs-will': 20,
   comparison: 25,
@@ -15,6 +18,7 @@ const MIN_ITEMS: Record<Exclude<TopicId, 'irregular-verbs'>, number> = {
   'present-perfect': 25,
   modals: 30,
   'mixed-tenses': 25,
+  'simple-past': 28,
 };
 
 const MIN_VOCAB: Record<Exclude<VocabTopic, 'own'>, number> = {
@@ -34,8 +38,8 @@ const allItems = grammarTopics.flatMap((t) => t.items);
 describe('grammar data', () => {
   it('has all topics in plan order', () => {
     expect(grammarTopics.map((t) => t.id)).toEqual([
-      'going-to', 'will', 'going-to-vs-will', 'comparison',
-      'past-progressive', 'present-perfect', 'irregular-verbs', 'modals', 'mixed-tenses',
+      'simple-present', 'present-progressive', 'going-to', 'timetable-future', 'will', 'going-to-vs-will', 'comparison',
+      'simple-past', 'past-progressive', 'present-perfect', 'irregular-verbs', 'modals', 'mixed-tenses',
     ]);
   });
 

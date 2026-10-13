@@ -33,7 +33,7 @@ index.html → src/main.tsx → App.tsx (hash routing) → AppStateProvider (sta
   | Part | Questions | Points each | Content |
   |---|---|---|---|
   | A | 8 | 1 | vocab DE→EN |
-  | B | 12 | 1 | gap/choice, round-robin over topics so every topic appears |
+  | B | 12 | 1 | gap/choice, round-robin over topics: 12 distinct topics (W1-only covers all 7 W1 topics) |
   | C | 3 | 2 | write items |
   | D | 2 | 2 | mediation |
 
@@ -79,7 +79,7 @@ index.html → src/main.tsx → App.tsx (hash routing) → AppStateProvider (sta
 - **Grammar topic file:**
   - `src/data/grammar/<topicId>.ts` exports one camelCase const, e.g. `going-to-vs-will.ts` → `goingToVsWillTopic`.
   - Fields: `title` (EN), `titleDe` (DE), rule card arrays `form/usage/signalWords/pitfalls` with German text, and `examples: {en, de}[]`.
-- **Adding a topic:** extend the `TopicId` union in `src/types.ts`, add the topic to `grammarTopics` in `src/data/grammar/index.ts`, and update the expected order plus `MIN_ITEMS` in `src/data/data.test.ts`. Topics 1–4 are W1, 5–9 are W2.
+- **Adding a topic:** extend the `TopicId` union in `src/types.ts`, add the topic to `grammarTopics` in `src/data/grammar/index.ts`, and update the expected order plus `MIN_ITEMS` in `src/data/data.test.ts`. Topics 1–7 are W1, 8–13 are W2.
 - **Item IDs:**
   - Grammar items: `<topicId>-<nn>`, one sequence per topic for all kinds (e.g. `present-perfect-07`). IDs must be unique across all topics.
   - Generated irregular-verb items: `irregular-verbs-<base>-past|pp`.
@@ -149,7 +149,7 @@ npm run preview    # serve dist/ on :4173
   - `logic/answers.test.ts`: normalization, contractions, `almost`, `checkVocab` variants.
   - `logic/grading.test.ts`: grade boundaries, as an `it.each` table.
   - `logic/bulkVocab.test.ts`: separators, duplicates, 1-based error lines.
-  - `logic/mockTest.test.ts`: seed 42 gives 8/12/3/2 questions and 30 points with no duplicates; every topic appears in part B; W1-only stays W1; deterministic per seed; throws on `[]`. Topic membership is looked up by **item ID via `grammarTopics`, never by prefix**, because `going-to-` also matches `going-to-vs-will-`.
+  - `logic/mockTest.test.ts`: seed 42 gives 8/12/3/2 questions and 30 points with no duplicates; every part B question uses a different topic; a W1-only test covers every W1 topic in part B; W1-only stays W1; deterministic per seed; throws on `[]`. Topic membership is looked up by **item ID via `grammarTopics`, never by prefix**, because `going-to-` also matches `going-to-vs-will-`.
   - `data/data.test.ts`: content integrity — topic order, unique IDs, `___` exactly once, `correctIndex` in range, non-empty explanations and answers, `answers[0]` passes `checkItem` against itself, per-topic minimums and mix, 53 verbs / 106 items, vocab minimums per topic, ≥ 10 mediation items per workshop.
 - **Content edits:** run `npm test` after any change in `src/data/`. A failing self-check usually means an answer relies on `'s`/`'d` or other punctuation that `normalize` doesn't handle.
 - **Before finishing:** `npm test`, `npm run build` and `npm run lint` must all pass cleanly.

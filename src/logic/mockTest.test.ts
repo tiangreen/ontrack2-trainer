@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { grammarTopics } from '../data/grammar';
 import { starterVocab } from '../data/vocab';
-import { buildMockTest, type MockQuestion } from './mockTest';
+import { buildMockTest, MOCK_COUNTS, type MockQuestion } from './mockTest';
 import { mulberry32 } from './random';
 
 const topicOfItem = new Map(grammarTopics.flatMap((t) => t.items.map((i) => [i.id, t] as const)));
@@ -21,9 +21,15 @@ describe('buildMockTest', () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it('covers every grammar topic in part B', () => {
+  it('uses a different grammar topic for every part B question', () => {
     const covered = new Set(both.filter((q) => q.section === 'B').map((q) => topicOfItem.get(idOf(q))?.id));
-    expect([...covered].sort()).toEqual(grammarTopics.map((t) => t.id).sort());
+    expect(covered.size).toBe(Math.min(MOCK_COUNTS.B, grammarTopics.length));
+  });
+
+  it('covers every W1 topic in part B of a W1-only test', () => {
+    const w1 = buildMockTest(['W1'], starterVocab, mulberry32(7));
+    const covered = new Set(w1.filter((q) => q.section === 'B').map((q) => topicOfItem.get(idOf(q))?.id));
+    expect([...covered].sort()).toEqual(grammarTopics.filter((t) => t.workshop === 'W1').map((t) => t.id).sort());
   });
 
   it('only uses the chosen workshop', () => {

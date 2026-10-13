@@ -21,7 +21,7 @@ export function buildMockTest(workshops: WorkshopId[], vocab: VocabEntry[], rng:
   );
   const a = vocabPool.slice(0, MOCK_COUNTS.A);
 
-  // Round-robin over (shuffled) topics so every topic appears before any repeats.
+  // Round-robin over (shuffled) topics: every topic appears once before any repeats (all topics if there are at most MOCK_COUNTS.B).
   const pools = shuffle(topics, rng).map((t) =>
     shuffle(
       t.items.filter((i): i is GapItem | ChoiceItem => i.kind !== 'write'),

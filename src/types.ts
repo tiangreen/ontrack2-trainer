@@ -1,9 +1,13 @@
 export type WorkshopId = 'W1' | 'W2';
 export type TopicId =
+  | 'simple-present'
+  | 'present-progressive'
   | 'going-to'
+  | 'timetable-future'
   | 'will'
   | 'going-to-vs-will'
   | 'comparison'
+  | 'simple-past'
   | 'past-progressive'
   | 'present-perfect'
   | 'irregular-verbs'
